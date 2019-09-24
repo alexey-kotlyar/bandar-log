@@ -10,7 +10,7 @@ import sbt._
 
 object V {
   val config              = "1.3.4"
-  val datadogMetrics      = "1.1.2"
+  val datadogMetrics      = "1.1.13"
   val dbUtils             = "1.5"
   val presto              = "0.181"
   val consulClient        = "1.2.1"
