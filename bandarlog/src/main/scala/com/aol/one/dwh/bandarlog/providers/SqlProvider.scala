@@ -12,7 +12,7 @@ import com.aol.one.dwh.bandarlog.connectors.{GlueConnector, JdbcConnector}
 import com.aol.one.dwh.bandarlog.metrics.{AtomicValue, Value}
 import com.aol.one.dwh.bandarlog.providers.SqlProvider._
 import com.aol.one.dwh.infra.config.Table
-import com.aol.one.dwh.infra.sql.{QueryResulthandler, _}
+import com.aol.one.dwh.infra.sql.{QueryResultHandler, _}
 import com.aol.one.dwh.infra.util.LogTrait
 
 object SqlProvider {
@@ -28,7 +28,7 @@ object SqlProvider {
 class SqlTimestampProvider(connector: JdbcConnector, query: Query) extends TimestampProvider with LogTrait {
 
   override def provide(): Value[Timestamp] = {
-    AtomicValue(connector.runQuery(query, QueryResulthandler.get(query)))
+    AtomicValue(connector.runQuery(query, QueryResultHandler.get(query)))
   }
 }
 
