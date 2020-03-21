@@ -57,11 +57,18 @@ case class MySQLMaxValuesQuery(table: Table) extends PrestoQuery {
   override def settings: Seq[Setting] = Seq.empty
 }
 
+case class ClickhouseMaxValuesQuery(table: Table) extends PrestoQuery {
+  override def sql: String = SqlGenerator.generate(table)
+
+  override def settings: Seq[Setting] = Seq.empty
+}
+
 object MaxValuesQuery {
 
   def get(source: String): Table => Query = source match {
     case PRESTO => PrestoMaxValuesQuery
     case VERTICA => VerticaMaxValuesQuery
+    case CLICKHOUSE => ClickhouseMaxValuesQuery
     case MYSQL => MySQLMaxValuesQuery
     case s => throw new IllegalArgumentException(s"Can't get query for source:[$s]")
   }

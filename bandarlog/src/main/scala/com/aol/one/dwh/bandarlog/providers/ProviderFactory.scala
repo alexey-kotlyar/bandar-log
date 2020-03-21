@@ -22,7 +22,7 @@ class ProviderFactory(mainConfig: Config, connectionPoolHolder: ConnectionPoolHo
   def create(connector: ConnectorConfig, table: Table): TimestampProvider = {
     connector.connectorType match {
 
-      case VERTICA | PRESTO | MYSQL => {
+      case VERTICA | PRESTO | CLICKHOUSE | MYSQL => {
         val query = MaxValuesQuery.get(connector.connectorType)(table)
         val connectionPool = connectionPoolHolder.get(connector)
         new SqlTimestampProvider(JdbcConnector(connector.connectorType, connectionPool), query)
