@@ -18,6 +18,8 @@ import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.dropwizard.DropwizardExports
 import io.prometheus.client.exporter.PushGateway
 
+import scala.util.control.NonFatal
+
 /**
   * PushGateway Metric Reporter
   */
@@ -45,7 +47,7 @@ class PushGatewayMetricReporter(config: PushGatewayConfig, tags: List[String], m
         try {
           pushGateway.pushAdd(collectorRegistry, reportConf.prefix)
         } catch {
-          case e: Exception => logger.error("Failed to report metrics to PushGateway, error below", e)
+          case NonFatal(e) => logger.error("Failed to report metrics to PushGateway, error below", e)
         }
       }
     }
